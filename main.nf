@@ -66,12 +66,12 @@ if (length(count_file_c) != length(count_file_t)) {
 temp <- cbind(count_file[,count_file_c, drop=FALSE], count_file[,count_file_t, drop=FALSE])          # combine
 temp <- temp[, c(matrix(1:ncol(temp), nrow = 2, byrow = T))]                 # then reorder
 count_file_acer <- cbind(count_file[,1:2], temp)
-write.table(count_file_acer,file = "counts.count.acer.${label}.txt", row.names = F, sep = "\t", quote = FALSE)
+write.table(count_file_acer,file = "counts.count.acer.${label}.txt", row.names = F, sep = "\\t", quote = FALSE)
 # second, check on if negative contrl gene file will be used or not
 if (${params.use_neg_ctrl} == T) {
     negctrlfile = as.data.frame(unlist(strsplit("${control_gene}", ",")))
     colnames(negctrlfile) = "Neg_Control_Genes"
-    write.table(negctrlfile, file = "neg.gene.${label}.txt", row.names = F, sep = "\t", quote = FALSE)
+    write.table(negctrlfile, file = "neg.gene.${label}.txt", row.names = F, sep = "\\t", quote = FALSE)
     negctrlfilepath = "${params.output_acer}/neg.gene.${label}.txt"
     } else {
     negctrlfilepath = ""}
@@ -80,18 +80,18 @@ if (${params.use_neg_ctrl} == T) {
 if(${params.using_master_library}==F){
 \`${label}.Data\` <- DataObj\$new(
                     #masterFiles = , 
-                    countFile = "${output_acer}/counts.count.acer.${label}.txt",  #make sure from the 3rd column, the columns are altenated as initial-depleted-initial-depleted--initial-depleted.. 
+                    countFile = "${params.output_acer}/counts.count.acer.${label}.txt",  #make sure from the 3rd column, the columns are altenated as initial-depleted-initial-depleted--initial-depleted.. 
                     negCtrlFile = negctrlfilepath, 
                     #sampleInfoFile = "", #subtype file, we don't have so far
                     hasInitSeq = T)
 \`${label}.Model\` <- ModelObj\$new(user_DataObj = \`${label}.Data\`,
-                    use_neg_ctrl= ${use_neg_ctrl},
+                    use_neg_ctrl= ${params.use_neg_ctrl},
                     #test_samples="", we don't have subtype
                     use_master_library = F) 
 }else{
 \`${label}.Data\` <- DataObj\$new(
                     masterFiles = ${params.acer_master_library}, 
-                    countFile = "${output_acer}/counts.count.acer.${label}.txt",  #make sure from the 3rd column, the columns are altenated as initial-depleted-initial-depleted--initial-depleted.. 
+                    countFile = "${params.output_acer}/counts.count.acer.${label}.txt",  #make sure from the 3rd column, the columns are altenated as initial-depleted-initial-depleted--initial-depleted.. 
                     negCtrlFile = negctrlfilepath, 
                     #sampleInfoFile = "", #subtype file, we don't have so far
                     hasInitSeq = T)
