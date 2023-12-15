@@ -115,8 +115,8 @@ workflow images {
 
 
 workflow {
-    if ( ! file("${params.output_drugz}").isDirectory() ) {
-      file("${params.output_drugz}").mkdirs()
+    if ( ! file("${params.output_acer}").isDirectory() ) {
+      file("${params.output_acer}").mkdirs()
     }
 
     rows=Channel.fromPath("${params.samples_tsv}", checkIfExists:true).splitCsv(sep:';')
