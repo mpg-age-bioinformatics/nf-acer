@@ -1,0 +1,8 @@
+{ 
+  "samples_tsv":"/nexus/posix0/MAGE-flaski/service/hpc/home/jboucas/nextflow-crispr-data/samples.tsv",
+  "ouput_mageck_count" : "/nexus/posix0/MAGE-flaski/service/hpc/home/jboucas/nextflow-crispr-data/mageck_output/fastq" ,
+  "output_acer":"/nexus/posix0/MAGE-flaski/service/hpc/home/jboucas/nextflow-crispr-data/drugz_output",
+  "use_neg_ctrl":"T",
+  "using_master_library":"F",
+  "acer_master_library":
+}
