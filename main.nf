@@ -55,7 +55,7 @@ setwd("${params.output_acer}")
 # first, covert counts.count.txt from mageck to the format that can'be properly analyzed by ACER
 # columns should be in the order: sgRNA-gene-initial-depleted-initial-depleted--initial-depleted.. 
 # i.e. sgRNA	Gene	Control_Rep1	ToxA_Rep1	Control_Rep2	ToxA_Rep2
-count_file = read.table("${params.ouput_mageck_count}counts.count.txt", header = T, check.names=FALSE)
+count_file = read.table("${params.output_mageck_count}counts.count.txt", header = T, check.names=FALSE)
 count_file_c = unlist(strsplit("${control}", ","))
 count_file_t = unlist(strsplit("${treatment}", ","))
 if (length(count_file_c) != length(count_file_t)) {
@@ -78,32 +78,32 @@ if (${params.use_neg_ctrl} == T) {
 #now, as counts.count.acer.${label}.txt is ready, we start ACER
 #depending if master library is used or not:
 if(${params.using_master_library}==F){
-\`${label}.Data\` <- DataObj\$new(
+${label}.Data <- DataObj\$new(
                     #masterFiles = , 
                     countFile = "${params.output_acer}/counts.count.acer.${label}.txt",  #make sure from the 3rd column, the columns are altenated as initial-depleted-initial-depleted--initial-depleted.. 
                     negCtrlFile = negctrlfilepath, 
                     #sampleInfoFile = "", #subtype file, we don't have so far
                     hasInitSeq = T)
-\`${label}.Model\` <- ModelObj\$new(user_DataObj = \`${label}.Data\`,
+${label}.Model <- ModelObj\$new(user_DataObj = ${label}.Data,
                     use_neg_ctrl= ${params.use_neg_ctrl},
                     #test_samples="", we don't have subtype
                     use_master_library = F) 
 }else{
-\`${label}.Data\` <- DataObj\$new(
+${label}.Data <- DataObj\$new(
                     masterFiles = ${params.acer_master_library}, 
                     countFile = "${params.output_acer}/counts.count.acer.${label}.txt",  #make sure from the 3rd column, the columns are altenated as initial-depleted-initial-depleted--initial-depleted.. 
                     negCtrlFile = negctrlfilepath, 
                     #sampleInfoFile = "", #subtype file, we don't have so far
                     hasInitSeq = T)
-\`${label}.Model\` <- ModelObj\$new(user_DataObj = \`${label}.Data\`,
+${label}.Model <- ModelObj\$new(user_DataObj = ${label}.Data,
                     use_neg_ctrl= ${params.use_neg_ctrl},
                     #test_samples="", we don't have subtype
                     use_master_library = T) 
 }
-\`${label}.Result\` <- optimizeModelParameters(user_DataObj = \`${label}.Data\`,
-                    user_ModelObj = \`${label}.Model\`,
+${label}.Result <- optimizeModelParameters(user_DataObj = ${label}.Data,
+                    user_ModelObj = ${label}.Model,
                     ncpus = 8)
-writeResObj(\`${label}.Result\`)
+writeResObj(${label}.Result)
 sessionInfo()
     """
 }
