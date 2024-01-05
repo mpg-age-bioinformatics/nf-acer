@@ -120,7 +120,7 @@ workflow {
     }
 
     rows=Channel.fromPath("${params.samples_tsv}", checkIfExists:true).splitCsv(sep:';')
-    rows=rows.filter{ ! file( "${params.output_drugz}/${it[0]}.txt" ).exists() }
+    rows=rows.filter{ ! file( "${params.output_acer}/${it[0]}.txt" ).exists() }
     label=rows.flatMap { n -> n[0] }
     paired=rows.flatMap { n -> n[1] }
     control=rows.flatMap { n -> n[2] }
