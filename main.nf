@@ -55,7 +55,7 @@ setwd("${params.output_acer}")
 # first, covert counts.count.txt from mageck to the format that can'be properly analyzed by ACER
 # columns should be in the order: sgRNA-gene-initial-depleted-initial-depleted--initial-depleted.. 
 # i.e. sgRNA	Gene	Control_Rep1	ToxA_Rep1	Control_Rep2	ToxA_Rep2
-count_file = read.table("${params.output_mageck_count}counts.count.txt", header = T, check.names=FALSE)
+count_file = read.table("${params.output_mageck_count}/counts.count.txt", header = T, check.names=FALSE)
 count_file_c = unlist(strsplit("${control}", ","))
 count_file_t = unlist(strsplit("${treatment}", ","))
 if (length(count_file_c) != length(count_file_t)) {
