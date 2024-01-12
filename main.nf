@@ -115,6 +115,8 @@ workflow images {
 
 
 workflow {
+  if ( 'use_neg_ctrl' in params.keySet() ) {
+
     if ( ! file("${params.output_acer}").isDirectory() ) {
       file("${params.output_acer}").mkdirs()
     }
@@ -131,4 +133,5 @@ workflow {
 
     proacer( label, paired, control, treatment, paired, control_gene)
 
+  }
 }
