@@ -78,32 +78,32 @@ if (${params.use_neg_ctrl} == T) {
 #now, as counts.count.acer.${label}.txt is ready, we start ACER
 #depending if master library is used or not:
 if(${params.using_master_library}==F){
-${label}.Data <- DataObj\$new(
+newDataObj <- DataObj\$new(
                     #masterFiles = , 
                     countFile = "${params.output_acer}/counts.count.acer.${label}.txt",  #make sure from the 3rd column, the columns are altenated as initial-depleted-initial-depleted--initial-depleted.. 
                     negCtrlFile = negctrlfilepath, 
                     #sampleInfoFile = "", #subtype file, we don't have so far
                     hasInitSeq = T)
-${label}.Model <- ModelObj\$new(user_DataObj = ${label}.Data,
+newModelObj <- ModelObj\$new(user_DataObj = newDataObj,
                     use_neg_ctrl= ${params.use_neg_ctrl},
                     #test_samples="", we don't have subtype
                     use_master_library = F) 
 }else{
-${label}.Data <- DataObj\$new(
+newDataObj <- DataObj\$new(
                     masterFiles = ${params.acer_master_library}, 
                     countFile = "${params.output_acer}/counts.count.acer.${label}.txt",  #make sure from the 3rd column, the columns are altenated as initial-depleted-initial-depleted--initial-depleted.. 
                     negCtrlFile = negctrlfilepath, 
                     #sampleInfoFile = "", #subtype file, we don't have so far
                     hasInitSeq = T)
-${label}.Model <- ModelObj\$new(user_DataObj = ${label}.Data,
+newModelObj <- ModelObj\$new(user_DataObj = newDataObj,
                     use_neg_ctrl= ${params.use_neg_ctrl},
                     #test_samples="", we don't have subtype
                     use_master_library = T) 
 }
-${label}.Result <- optimizeModelParameters(user_DataObj = ${label}.Data,
-                    user_ModelObj = ${label}.Model,
+newResultsObj <- optimizeModelParameters(user_DataObj = newDataObj,
+                    user_ModelObj = newModelObj,
                     ncpus = 8)
-writeResObj(${label}.Result)
+writeResObj(newResultsObj)
 sessionInfo()
     """
 }
