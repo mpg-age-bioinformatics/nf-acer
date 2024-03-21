@@ -122,7 +122,10 @@ workflow {
     }
 
     rows=Channel.fromPath("${params.samples_tsv}", checkIfExists:true).splitCsv(sep:';')
-    rows=rows.filter{ ! file( "${params.output_acer}/${it[0]}.txt" ).exists() }
+    rows = rows.filter { row ->
+        def files = file("${params.output_acer}/ACE_output_data").list().findAll { it.endsWith("_gene_results.csv") && it.startsWith("${row[0]}") }
+        files.isEmpty()
+    }
     label=rows.flatMap { n -> n[0] }
     paired=rows.flatMap { n -> n[1] }
     control=rows.flatMap { n -> n[2] }
