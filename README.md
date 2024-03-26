@@ -1,4 +1,4 @@
-# nf-fastqc
+# nf-acer
 
 Run the workflow:
 ```
